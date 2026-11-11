@@ -358,6 +358,9 @@ static void writeFileAtomically(std::string const &path, std::vector<char> const
         } else if (auto *tr = lt::alert_cast<lt::tracker_reply_alert>(a)) {
             _trackerStatus[hashString(tr->handle.info_hashes())] = "Announce OK";
         } else if (auto *te = lt::alert_cast<lt::tracker_error_alert>(a)) {
+            // "skipping tracker announce (unreachable)": an endpoint (e.g. IPv6) this
+            // machine can't reach. Not a real tracker failure, so don't report it.
+            if (te->error == lt::errors::announce_skipped) continue;
             std::string msg = te->failure_reason();
             if (msg.empty()) msg = te->error.message();
             _trackerStatus[hashString(te->handle.info_hashes())] = "Error: " + msg;

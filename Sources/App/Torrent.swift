@@ -64,9 +64,13 @@ struct Torrent: Identifiable, Hashable, Searchable {
 }
 
 enum Format {
-    static func bytes(_ v: Int64) -> String {
-        ByteCountFormatter.string(fromByteCount: v, countStyle: .file)
-    }
+    private static let byteFormatter: ByteCountFormatter = {
+        let f = ByteCountFormatter()
+        f.countStyle = .file
+        f.allowsNonnumericFormatting = false  // "0 bytes", not "Zero KB"
+        return f
+    }()
+    static func bytes(_ v: Int64) -> String { byteFormatter.string(fromByteCount: v) }
     static func rate(_ v: Int64) -> String { v > 0 ? bytes(v) + "/s" : "–" }
     static func eta(_ seconds: Double?) -> String {
         guard let s = seconds, s.isFinite else { return "–" }

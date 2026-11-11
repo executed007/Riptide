@@ -33,6 +33,7 @@ echo "== Compiling app"
 rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources" "$APP/Contents/Frameworks"
 cp Resources/Info.plist "$APP/Contents/Info.plist"
+cp Resources/AppIcon.icns "$APP/Contents/Resources/AppIcon.icns"
 swiftc -O -parse-as-library -target "$TARGET" \
   -import-objc-header Sources/Bridge/TorrentBridge.h \
   Sources/App/*.swift build/TorrentBridge.o $LT_LIBS \
