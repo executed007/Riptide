@@ -45,8 +45,8 @@ iconutil -c icns /tmp/AppIcon.iconset -o Resources/AppIcon.icns
 
 ## Versions
 
-- `v1.0` (tag, branch `main`): first release, table-based UI
-- `v2.0` (tag, branch `v2-redesign`): logo, cleaner UI, inspector
+- `v1.0` (tag): first release, table-based UI
+- `v2.0` (tag, now on `main`): logo, cleaner UI, inspector
 - Built apps are archived in `releases/` (not in git)
 
 ## Layout
